@@ -1,5 +1,5 @@
 //
-//  DrawView.h
+//  DrawPath.h
 //  Palette
 //
 //  Created by 于亚伟 on 2016/11/8.
@@ -8,18 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DrawView : UIView
-
-/** path color */
+@interface DrawPath : UIBezierPath
+/** color */
 @property (nonatomic,strong) UIColor *pathColor;
-/** line width */
-@property (nonatomic,assign) NSInteger lineWidth;
-
-// 清屏
-- (void)clear;
-
-// 撤销
-- (void)undo;
-
-
 @end

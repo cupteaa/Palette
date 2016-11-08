@@ -25,12 +25,18 @@
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3zZ-8Q-knf"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kAv-5y-O4W" userLabel="red">
                                         <color key="backgroundColor" red="1" green="0.35206601545733507" blue="0.23692932704446679" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4T4-RS-3p4"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smE-Ex-7v5" userLabel="blue">
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,8 +46,15 @@
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="colorChange:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jhc-Z0-wgm"/>
+                                        </connections>
                                     </button>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.59999999999999998" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="7Do-fD-yAX"/>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="15" translatesAutoresizingMaskIntoConstraints="NO" id="7Do-fD-yAX">
+                                        <connections>
+                                            <action selector="lineWidth:" destination="BYZ-38-t0r" eventType="valueChanged" id="fSU-pe-uvi"/>
+                                        </connections>
+                                    </slider>
                                 </subviews>
                                 <color key="backgroundColor" red="0.98623320179999996" green="0.54845379100000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -68,16 +81,41 @@
                                     <constraint firstAttribute="height" constant="44" id="6Ji-rI-r9V"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="清屏" id="Mpp-Hb-uc9"/>
-                                    <barButtonItem title="撤销" id="Z8e-KD-Pav"/>
-                                    <barButtonItem title="擦除" id="9vN-ve-VXG"/>
-                                    <barButtonItem title="照片" id="mMQ-Xm-tns"/>
+                                    <barButtonItem title="清屏" id="Mpp-Hb-uc9">
+                                        <connections>
+                                            <action selector="clear:" destination="BYZ-38-t0r" id="Ccb-CV-jfW"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="撤销" id="Z8e-KD-Pav">
+                                        <connections>
+                                            <action selector="undo:" destination="BYZ-38-t0r" id="V7c-WF-Bhi"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="擦除" id="9vN-ve-VXG">
+                                        <connections>
+                                            <action selector="earse:" destination="BYZ-38-t0r" id="8ST-px-09i"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="照片" id="mMQ-Xm-tns">
+                                        <connections>
+                                            <action selector="PickPictureFromAlbum:" destination="BYZ-38-t0r" id="iUy-gY-PEX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="画笔复位" id="CsB-va-jlg">
+                                        <connections>
+                                            <action selector="stateReset:" destination="BYZ-38-t0r" id="8AT-LX-8dA"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="4fm-5g-yA1"/>
-                                    <barButtonItem title="保存" id="wNr-Ij-yBM"/>
+                                    <barButtonItem title="保存" id="wNr-Ij-yBM">
+                                        <connections>
+                                            <action selector="savePictureToAlbum:" destination="BYZ-38-t0r" id="hg3-g6-oq1"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3cR-AF-ify" customClass="DrawView">
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,6 +132,10 @@
                             <constraint firstItem="3cR-AF-ify" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="vE5-Tx-kWB"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="drawView" destination="3cR-AF-ify" id="7iQ-oW-R5i"/>
+                        <outlet property="lineWidth" destination="7Do-fD-yAX" id="Fob-3b-Yle"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
