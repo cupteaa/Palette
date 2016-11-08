@@ -26,6 +26,13 @@
     return _paths;
 }
 
+- (void)setImage:(UIImage *)image
+{
+    _image = image;
+    [self.paths addObject:_image];
+    [self setNeedsDisplay];
+}
+
 // 清屏
 - (void)clear
 {
@@ -87,8 +94,14 @@
 - (void)drawRect:(CGRect)rect
 {
     for (DrawPath *path in self.paths) {
-        [path.pathColor set];
-        [path stroke];
+        if ([path isKindOfClass:[UIImage class]]) {
+            // 绘制图片
+            UIImage *image = (UIImage *)path;
+            [image drawInRect:rect];
+        } else {
+            [path.pathColor set];
+            [path stroke];
+        }
     }
 }
 

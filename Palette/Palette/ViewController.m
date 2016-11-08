@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "DrawView.h"
 
-@interface ViewController ()
+@interface ViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet DrawView *drawView;
 @property (weak, nonatomic) IBOutlet UISlider *lineWidth;
@@ -35,10 +35,44 @@
  
 }
 - (IBAction)PickPictureFromAlbum:(id)sender {
+    // 弹出相册
+    UIImagePickerController *pickerVc = [[UIImagePickerController alloc] init];
+    pickerVc.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;// 照片库
     
+    pickerVc.delegate = self;
+    // modal
+    [self presentViewController:pickerVc animated:YES completion:nil];
 }
+
+#pragma mark - <UIImagePickerControllerDelegate>
+// 当用户从相册中选择一张照片的时候调用
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    NSLog(@"picked a picture");
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    self.drawView.image = image;
+    // dismiss
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)savePictureToAlbum:(id)sender {
-    
+    // 开启上下文
+    UIGraphicsBeginImageContextWithOptions(self.drawView.frame.size, NO, 0);
+    // 获取上下文
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    // 将控件的图层渲染到上下文中
+    [self.drawView.layer renderInContext:ctx];
+    // 获取新的图片
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    // 关闭上下文
+    UIGraphicsEndImageContext();
+    // 将图片保存到相册
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image: didFinishSavingWithError:contextInfo:), nil);
+}
+// 监听保存成功,必须实现这个方法
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    NSLog(@"图片保存成功");
 }
 
 

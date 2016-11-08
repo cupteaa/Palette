@@ -14,6 +14,8 @@
 @property (nonatomic,strong) UIColor *pathColor;
 /** line width */
 @property (nonatomic,assign) NSInteger lineWidth;
+/** image */
+@property (nonatomic,strong) UIImage *image;
 
 // 清屏
 - (void)clear;
