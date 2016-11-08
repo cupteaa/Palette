@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "DrawView.h"
+#import "ImageHandleView.h"
 
 @interface ViewController ()<UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
@@ -50,7 +51,14 @@
 {
     NSLog(@"picked a picture");
     UIImage *image = info[UIImagePickerControllerOriginalImage];
-    self.drawView.image = image;
+    // 创建一个处理图片的view
+    ImageHandleView *handleView = [[ImageHandleView alloc] initWithFrame:self.drawView.bounds];
+    handleView.handleCompletionBlock = ^(UIImage *image){
+        self.drawView.image = image;
+    };
+    handleView.image = image;
+    [self.drawView addSubview:handleView];
+//    self.drawView.image = image;
     // dismiss
     [self dismissViewControllerAnimated:YES completion:nil];
 }
